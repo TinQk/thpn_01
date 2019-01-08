@@ -1,9 +1,12 @@
 
-<% Item.all.each do |i| %>
+<% Item.all.sort.each do |i| %>
   <tr>
-    <th><%= i.original_price %></th>
-    <th><%= i.discount_percentage %>%</th>
-    <th><%= i.price.round(2) %></th>
-    <th></th> 
+    <td><%= i.original_price %></td>
+    <%= form_for i, url: administration_item_path(i) do |f| %>
+      <td><%= f.text_field :discount_percentage, placeholder: "#{i.discount_percentage}" %></td>
+      <td><%= i.price %></td>
+      <td><%= f.submit 'modifier', class: 'btn btn-default' %></td>
+    <% end %>
   </tr>
 <% end %>
+

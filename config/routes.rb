@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   namespace 'administration' do
     get '/', to: 'items#index'
 
-    resources :items
+    resources :items, only: [:index, :update]
   end
 end
