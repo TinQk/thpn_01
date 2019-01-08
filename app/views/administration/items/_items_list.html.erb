@@ -1,0 +1,9 @@
+
+<% Item.all.each do |i| %>
+  <tr>
+    <th><%= i.original_price %></th>
+    <th><%= i.discount_percentage %>%</th>
+    <th><%= i.price.round(2) %></th>
+    <th></th> 
+  </tr>
+<% end %>
