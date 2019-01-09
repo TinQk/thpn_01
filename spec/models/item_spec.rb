@@ -36,7 +36,7 @@ RSpec.describe Item, type: :model do
     end
     context 'when the item has a random (0-100) discount' do
       let(:item) { build(:item_with_discount) }     
-      it { expect(item.price).to eq(item.original_price - (item.discount_percentage / item.original_price * 100)) }
+      it { expect(item.price).to eq((item.original_price * (1 - item.discount_percentage.fdiv(100))).round(2)) }
       it { expect(item.has_discount).to eq(true) }
     end
     context 'when the item has no discount' do
@@ -56,7 +56,7 @@ RSpec.describe Item, type: :model do
 
     context 'with no item in base' do
       before do
-        create_list(:item_with_discount, 0, original_price: 100, discount_percentage: 20 )
+        create_list(:item_with_discount, 0)
       end
       it { expect(Item.average_price).to eq(0) }
     end
