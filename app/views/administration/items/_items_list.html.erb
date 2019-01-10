@@ -1,6 +1,17 @@
 
-<% Item.all.sort.each do |i| %>
+<% Item.all.sort.each_with_index do |i, n| %>
   <tr>
+  	<%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name") %>
+  	<% if i.categories.first != nil %>
+  	  <td><%= i.categories.first.name %></td>
+  	<% else %>
+  	  <td>No category</td>
+  	<% end %>
+  	<% if i.name == nil %>
+  	  <td><%= "Item N°#{n+1}" %></td>
+  	<% else %>
+  	  <td><%= i.name %></td>
+  	<% end %>
     <td><%= i.original_price %></td>
     <%= form_for i, url: administration_item_path(i) do |f| %>
       <td><%= f.text_field :discount_percentage, placeholder: "#{i.discount_percentage}" %></td>
@@ -9,4 +20,3 @@
     <% end %>
   </tr>
 <% end %>
-

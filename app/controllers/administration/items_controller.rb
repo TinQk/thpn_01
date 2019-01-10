@@ -18,15 +18,13 @@ module Administration
       	flash[:alert] = "Le pourcentage doit être une valeur comprise entre 0 et 100"
       end
 
-
       redirect_to root_path
     end
  
-
-   private
+    private
 
     def item_params
       params.require(:item).permit(:discount_percentage)
     end
-end
+  end
 end

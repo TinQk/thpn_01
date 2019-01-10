@@ -13,6 +13,8 @@
 #
 
 class Item < ApplicationRecord
+  has_many :item_categories
+  has_many :categories, through: :item_categories
   def price
   	if has_discount == false || discount_percentage == nil
       original_price
