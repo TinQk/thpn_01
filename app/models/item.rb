@@ -16,21 +16,18 @@ class Item < ApplicationRecord
   has_many :item_categories
   has_many :categories, through: :item_categories
   def price
-  	if has_discount == false || discount_percentage == nil
+    if has_discount
+      (original_price * (1 - discount_percentage.to_f / 100)).round(2)
+    else
       original_price
-	else
-	  (original_price * (1 - discount_percentage.fdiv(100))).round(2)
-	end
+    end
   end
 
   def self.average_price
-  	sum = 0
-  	if Item.count != 0
-  	  Item.all.each {|i| sum += i.price}
-  	  sum /= Item.count
-  	else
-  	  puts "There's no item in base"
-  	  0
-  	end
+    if count.zero?
+      nil
+    else
+      (all.inject(0.0) { |total, item| total += item.price } / count).round(2)
+    end
   end
 end

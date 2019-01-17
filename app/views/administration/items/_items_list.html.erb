@@ -1,7 +1,6 @@
 
 <% Item.all.sort.each_with_index do |i, n| %>
   <tr>
-  	<%= select_tag "category_id", options_from_collection_for_select(Category.all, "id", "name") %>
   	<% if i.categories.first != nil %>
   	  <td><%= i.categories.first.name %></td>
   	<% else %>
