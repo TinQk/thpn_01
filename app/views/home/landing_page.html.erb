@@ -1,2 +1,20 @@
-<h1>Home#landing_page</h1>
-<p>Find me in app/views/home/landing_page.html.erb</p>
+<h1>Hi there</h1>
+<% if user_signed_in? %>
+  <p>email: <%= current_user.email %></p>
+  <h1>Check out our tasty offer!</h1>
+  <p> <%= link_to "Click here", send_offer_index_path, method: :post, class:"btn btn-sm btn-primary" %> </p>
+<% end %>
+
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to'Login', new_user_session_path %><br />
+  </li>
+  <li>
+  <%= link_to "Sign up", new_user_registration_path %><br /> 
+  </li>
+<% end %>
+
